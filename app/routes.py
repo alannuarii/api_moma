@@ -447,8 +447,30 @@ def correction():
     return jsonify(response), 200
 
 
+@app.route('/autoschedule', methods=['POST'])
+def auto_schedule():
+    try:
+        object_weather = Weather()
+        object_rom = ROM()
+        object_weather.insert_weather()
+        object_rom.auto_upload_rom('rompltd')
+        object_rom.auto_upload_rom('rompv')
+        object_rom.auto_upload_rom('rombss')
+        post_max_irradiance()
+        post_mode_operasi()
+        mode_correction()
+        response = {"message": "Data berhasil dikirim"}
+        return jsonify(response), 200
+
+    except Exception as e:
+        error_response = {"message": "Data gagal terkirim", "error": str(e)}
+        return jsonify(error_response), 500
+
+
 @app.route("/test")
 def test_route():
     # mode_correction2()
     response = {"message": "Sukses"}
     return jsonify(response), 200
+
+
