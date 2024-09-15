@@ -469,16 +469,16 @@ def auto_schedule():
         return jsonify(error_response), 500
 
 
-# @app.route("/test")
-# def test_route():
-#     try:
-#         obj_irr = Irradiance()
-#         obj_irr.auto_input_irradiance()
-#         response = {"message": "Sukses"}
-#         return jsonify(response), 200
+@app.route("/manualirradiance/<tanggal>")
+def manual_irradiance(tanggal):
+    try:
+        obj_irr = Irradiance()
+        obj_irr.manual_input_irradiance(tanggal)
+        response = {"message": "Sukses"}
+        return jsonify(response), 200
 
-#     except Exception as e:
-#         error_response = {"message": "Data tidak ditemukan", "error": str(e)}
-#         return jsonify(error_response), 500
+    except Exception as e:
+        error_response = {"message": "Data tidak ditemukan", "error": str(e)}
+        return jsonify(error_response), 500
 
 
