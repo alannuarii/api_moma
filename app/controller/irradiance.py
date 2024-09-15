@@ -96,18 +96,14 @@ class Irradiance:
         return result
 
     def auto_input_irradiance(self):
-        now = datetime.now() + timedelta(hours=8)
-        target_waktu = time(20, 0, 0)
+        tanggal = date.today().strftime("%Y-%m-%d")
+        check_tanggal = self.get_date_irradiance(tanggal)
+        if check_tanggal:
+            self.delete_irradiance(tanggal)
 
-        if now.time() == target_waktu:
-            tanggal = date.today().strftime("%Y-%m-%d")
-            check_tanggal = self.get_date_irradiance(tanggal)
-            if check_tanggal:
-                self.delete_irradiance(tanggal)
-
-            data = self.get_auto_irradiance(tanggal)
-            for i in range(len(data)):
-                self.insert_irradiance(tanggal, data[i]["jam"], data[i]["avg_irr"])
+        data = self.get_auto_irradiance(tanggal)
+        for i in range(len(data)):
+            self.insert_irradiance(tanggal, data[i]["jam"], data[i]["avg_irr"])
 
     def manual_input_irradiance(self, tanggal):
         check_tanggal = self.get_date_irradiance(tanggal)
