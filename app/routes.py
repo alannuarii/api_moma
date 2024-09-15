@@ -450,8 +450,10 @@ def correction():
 @app.route('/autoschedule', methods=['POST'])
 def auto_schedule():
     try:
+        object_irradiance = Irradiance()
         object_weather = Weather()
         object_rom = ROM()
+        object_irradiance.auto_input_irradiance()
         object_weather.insert_weather()
         object_rom.auto_upload_rom('rompltd')
         object_rom.auto_upload_rom('rompv')
@@ -467,10 +469,16 @@ def auto_schedule():
         return jsonify(error_response), 500
 
 
-@app.route("/test")
-def test_route():
-    # mode_correction2()
-    response = {"message": "Sukses"}
-    return jsonify(response), 200
+# @app.route("/test")
+# def test_route():
+#     try:
+#         obj_irr = Irradiance()
+#         obj_irr.auto_input_irradiance()
+#         response = {"message": "Sukses"}
+#         return jsonify(response), 200
+
+#     except Exception as e:
+#         error_response = {"message": "Data tidak ditemukan", "error": str(e)}
+#         return jsonify(error_response), 500
 
 

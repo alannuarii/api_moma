@@ -1,6 +1,6 @@
 from flask import request
 from db import connection
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, time
 import pandas as pd
 
 class Irradiance:
@@ -88,3 +88,23 @@ class Irradiance:
         value = [1]
         result = connection(query, 'select', value)
         return result
+    
+    def get_auto_irradiance(self, tanggal):
+        query = f"SELECT HOUR(waktu) AS jam, AVG(irradiance) AS avg_irr FROM auto_irradiance WHERE DATE(waktu) = %s GROUP BY HOUR(waktu) ORDER BY jam"
+        value = [tanggal]
+        result = connection(query, 'select', value)
+        return result
+
+    def auto_input_irradiance(self):
+        now = datetime.now() + timedelta(hours=8)
+        target_waktu = time(20, 0, 0)
+
+        if now.time() == target_waktu:
+            tanggal = date.today().strftime("%Y-%m-%d")
+            check_tanggal = self.get_date_irradiance(tanggal)
+            if check_tanggal:
+                self.delete_irradiance(tanggal)
+
+            data = self.get_auto_irradiance(tanggal)
+            for i in range(len(data)):
+                self.insert_irradiance(tanggal, data[i]["jam"], data[i]["avg_irr"])
