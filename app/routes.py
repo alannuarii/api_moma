@@ -384,7 +384,7 @@ def get_rombss_month(month):
 @app.route("/forcast-today/<tanggal>")
 def get_forcast_today(tanggal):
     try:
-        today = prediction(tanggal, "12")
+        today = prediction(tanggal, 0)
 
         response = {"message": "Sukses", "data": today}
         return jsonify(response), 200
@@ -397,7 +397,7 @@ def get_forcast_today(tanggal):
 @app.route("/forcast-tomorrow/<tanggal>")
 def get_forcast_tomorrow(tanggal):
     try:
-        tomorrow = prediction(tanggal, "36")
+        tomorrow = prediction(tanggal, 24)
 
         response = {"message": "Sukses", "data": tomorrow}
         return jsonify(response), 200
