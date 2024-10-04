@@ -135,10 +135,11 @@ def get_irradiance_month(month):
 def get_weather_today():
     try:
         object_weather = Weather()
-        weather = object_weather.get_weather("12")
-        temperature = object_weather.get_temperature("12")
-        humidity = object_weather.get_humidity("12")
-        wind = object_weather.get_wind("12")
+        data_weather = object_weather.get_data_weather(0)
+        weather = data_weather["weather"]
+        temperature = data_weather["t"]
+        humidity = data_weather["hu"]
+        wind = data_weather["ws"]
 
         response = {
             "message": "Sukses",
@@ -160,10 +161,11 @@ def get_weather_today():
 def get_weather_tomorrow():
     try:
         object_weather = Weather()
-        weather = object_weather.get_weather("36")
-        temperature = object_weather.get_temperature("36")
-        humidity = object_weather.get_humidity("36")
-        wind = object_weather.get_wind("36")
+        data_weather = object_weather.get_data_weather(24)
+        weather = data_weather["weather"]
+        temperature = data_weather["t"]
+        humidity = data_weather["hu"]
+        wind = data_weather["ws"]
 
         response = {
             "message": "Sukses",
