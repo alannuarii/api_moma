@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 
 class Weather:
-    def get_data_weather(delta):
+    def get_data_weather(self, delta):
         # URL API BMKG yang akan diakses
         url = "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=71.03.17.1016"
 
