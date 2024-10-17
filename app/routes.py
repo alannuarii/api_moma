@@ -138,7 +138,7 @@ def get_weather_today():
         now = datetime.now()
         today = datetime(now.year, now.month, now.day, 11, 0, 0)
         object_weather = Weather()
-        data_weather = object_weather.get_data_weather(0)
+        data_weather = object_weather.get_data_weather(12)
         weather = data_weather["weather"]
         temperature = data_weather["t"]
         humidity = data_weather["hu"]
