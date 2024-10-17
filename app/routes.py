@@ -14,6 +14,7 @@ from app.controller.rekap import (
     post_max_irradiance,
     mode_correction,
 )
+from datetime import datetime
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -134,6 +135,8 @@ def get_irradiance_month(month):
 @app.route("/weather-today")
 def get_weather_today():
     try:
+        now = datetime.now()
+        today = datetime(now.year, now.month, now.day, 11, 0, 0)
         object_weather = Weather()
         data_weather = object_weather.get_data_weather(0)
         weather = data_weather["weather"]
@@ -144,6 +147,7 @@ def get_weather_today():
         response = {
             "message": "Sukses",
             "data": {
+                "waktu": today,
                 "weather": weather,
                 "temperature": temperature,
                 "humidity": humidity,
