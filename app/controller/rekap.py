@@ -30,18 +30,10 @@ def delete_correction(tanggal):
 
 
 def post_max_irradiance():
-    yesterday = (datetime.now() - timedelta(days=1)).date()
-    
-    # Ambil tanggal start_date dari model Irradiance
-    start_date_raw = Irradiance().get_last_max_irradiance()[0]["tanggal"] + timedelta(days=1)
-    start_date = start_date_raw.date() if hasattr(start_date_raw, "date") else start_date_raw
-    
-    # Cek jika start_date bukan tanggal kemarin, ganti dengan tanggal hari ini
-    if start_date != yesterday:
-        start_date = datetime.now().date()
-
-    end_date_raw = Irradiance().get_last_irradiance()[0]["tanggal"] + timedelta(days=1)
-    end_date = end_date_raw.date() if hasattr(end_date_raw, "date") else end_date_raw
+    start_date = Irradiance().get_last_max_irradiance()[0]["tanggal"] + timedelta(
+        days=1
+    )
+    end_date = Irradiance().get_last_irradiance()[0]["tanggal"] + timedelta(days=1)
 
     while start_date < end_date:
         max_irr = max(get_arr_irradiance(start_date.strftime("%Y-%m-%d")))
