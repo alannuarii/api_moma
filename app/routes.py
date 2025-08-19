@@ -460,9 +460,9 @@ def auto_schedule():
         object_rom.auto_upload_rom('rompv')
         object_rom.auto_upload_rom('rombss')
         object_weather.insert_weather()
-        # post_max_irradiance()
-        # post_mode_operasi()
-        # mode_correction()
+        post_max_irradiance()
+        post_mode_operasi()
+        mode_correction()
     
         response = {"message": "Data berhasil dikirim"}
         return jsonify(response), 200
